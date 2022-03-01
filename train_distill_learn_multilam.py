@@ -98,7 +98,7 @@ class TrainClassifier:
         else:
             print(mtype)
         
-        model = None
+        model_temp = None
         if mtype == 'ResNet18':
             model = ResNet18(self.configdata['model']['numclasses'])
         elif mtype == 'ResNet50':
@@ -124,9 +124,9 @@ class TrainClassifier:
         elif mtype == 'WRN_16_X':
             print("model def wrn16")
             if self.configdata['dataset']['name'] in ['cars','flowers','airplane','dogs','Cub2011']:
-                model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
+                model_temp = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
             else:
-                model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
+                model_temp = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
 
         elif mtype == 'NN_2L':
             model = TwoLayerNet(input_dim=self.configdata['model']['input_dims'], \
@@ -141,8 +141,8 @@ class TrainClassifier:
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
         print("------")
         print()
-        print(model)
-        model = model.to(self.configdata['train_args']['device'])
+        print(model_temp)
+        model = model_temp.to(self.configdata['train_args']['device'])
         return model
 
     """#Loss Type, Optimizer and Learning Rate Scheduler"""
