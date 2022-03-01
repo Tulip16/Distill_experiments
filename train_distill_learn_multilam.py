@@ -143,6 +143,7 @@ class TrainClassifier:
         print()
         print(model_temp)
         model = model_temp.to(self.configdata['train_args']['device'])
+        print("to done")
         return model
 
     """#Loss Type, Optimizer and Learning Rate Scheduler"""
