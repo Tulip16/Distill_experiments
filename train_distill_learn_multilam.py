@@ -122,11 +122,12 @@ class TrainClassifier:
         elif mtype == 'DenseNet_X':
             model = DN_X_Y(depth=d, g =w,num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'WRN_16_X':
-            print("model def")
+            print("model def wrn16")
             if self.configdata['dataset']['name'] in ['cars','flowers','airplane','dogs','Cub2011']:
                 model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
             else:
                 model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
+            print(model)
 
         elif mtype == 'NN_2L':
             model = TwoLayerNet(input_dim=self.configdata['model']['input_dims'], \
