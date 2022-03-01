@@ -142,7 +142,7 @@ class TrainClassifier:
         print("------")
         print()
         print(model_temp)
-        model = model_temp.to(self.configdata['train_args']['device'])
+        model = model_temp #.to(self.configdata['train_args']['device'])
         print("to done")
         return model
 
