@@ -97,7 +97,8 @@ class TrainClassifier:
             print(mtype , d )
         else:
             print(mtype)
-
+        
+        model = None
         if mtype == 'ResNet18':
             model = ResNet18(self.configdata['model']['numclasses'])
         elif mtype == 'ResNet50':
