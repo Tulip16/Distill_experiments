@@ -114,7 +114,6 @@ class TrainClassifier:
         elif mtype == 'ResNet32':
             model = resnet32_cifar(num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'WideResNet':
-            print("model def")
             model = wrn(input_shape=self.configdata['model']['input_shape'], \
                         num_classes=self.configdata['model']['numclasses'], \
                         depth=28, widen_factor=10, repeat=3, dropRate=0.3, bias=True)
@@ -128,7 +127,6 @@ class TrainClassifier:
                 model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
             else:
                 model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
-            print(model)
 
         elif mtype == 'NN_2L':
             model = TwoLayerNet(input_dim=self.configdata['model']['input_dims'], \
