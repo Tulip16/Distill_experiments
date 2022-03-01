@@ -29,11 +29,12 @@ from utils.scheduler import Scheduler
 from models import *
 from models.resnet_cifar import resnet8_cifar, resnet20_cifar, resnet110_cifar
 
-from diffcultymeasure_val_class_distil.Lambda import RewLambda
-from diffcultymeasure_val_class_distil.LearnLambdaMeta import LearnLambdaMeta
-from diffcultymeasure_val_class_distil.LearnMultiLambdaMeta import LearnMultiLambdaMeta
+# from diffcultymeasure_val_class_distil.Lambda import RewLambda
+# from diffcultymeasure_val_class_distil.LearnLambdaMeta import LearnLambdaMeta
+# from diffcultymeasure_val_class_distil.LearnMultiLambdaMeta import LearnMultiLambdaMeta
+from getLambda.LearnMultiLambdaMeta import LearnMultiLambdaMeta
 
-seed = 75  # [42,36,24,67,84,32,75]
+seed = 24  # [42,36,24,67,84,32,75]
 
 # os.environ["CUBLAS_WORKSPACE_CONFIG"]=":4096:8"
 torch.manual_seed(seed)
@@ -284,8 +285,8 @@ class TrainClassifier:
 
         # print(trainset.dataset.data.shape)
         N = len(trainset)
-        trn_batch_size = self.configdata['dataloader']['trn_batch_size']
-        val_batch_size = self.configdata['dataloader']['val_batch_size']
+        trn_batch_size = self.configdata['dataloader']['trn_batch_size'] + self.configdata['dataloader']['val_batch_size'] - 1
+        val_batch_size = 1
         tst_batch_size = self.configdata['dataloader']['tst_batch_size']
 
         # Creating the Data Loaders
@@ -1230,7 +1231,7 @@ class TrainClassifier:
 torch.autograd.set_detect_anomaly(True)
 
 #tc = TrainClassifier("config/cifar100_wrn/config_no_curr_cifar100.py")
-tc = TrainClassifier("config/cifar100_wrn/config_multilam_cifar100.py")
+tc = TrainClassifier("config/cifar10_wrn/config_learnlam_cifar_10.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_samemultilam_cifar_100.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_diffmultilam_cifar_100.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_no_curr_cnn_cifar100.py")
