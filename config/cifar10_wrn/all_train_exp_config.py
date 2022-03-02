@@ -40,6 +40,7 @@ config = dict(setting="supervisedlearning",
 
               ds_strategy=dict(type="No-curr",
                                warm_epoch=10,
+                               select_every=10,
                                decay=0.2,
                                schedule=[0, 10, 20, 40, 60, 100, 140, 170, 201],
                                sch_ind=1),
