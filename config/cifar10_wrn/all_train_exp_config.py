@@ -14,7 +14,7 @@ config = dict(setting="supervisedlearning",
 
               model=dict(architecture='WRN_16_X', 
                          numclasses=10,
-                         teacher_arch='WRN_16_X', 
+                         teacher_arch=['WRN_16_X'], 
                          depth_teach = 16,
                          width_teach = 3,
                          depth = 16,
