@@ -139,8 +139,8 @@ class TrainClassifier:
         '''elif mtype == 'resnext50_32x4d':
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
 
-        model = model.to(self.configdata['train_args']['device'])
-        return model
+        final_model = model.to(self.configdata['train_args']['device'])
+        return final_model
 
     """#Loss Type, Optimizer and Learning Rate Scheduler"""
 
