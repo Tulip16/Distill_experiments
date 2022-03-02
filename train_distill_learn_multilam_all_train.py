@@ -140,11 +140,12 @@ class TrainClassifier:
 
         '''elif mtype == 'resnext50_32x4d':
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
-        print(model)
-        final_model = copy.deepcopy(model)
-        final_model = final_model.to(torch.device("cuda"))
-        print("to done")
-        return None #final_model
+        return model
+#         print(model)
+#         final_model = copy.deepcopy(model)
+#         final_model = final_model.to(torch.device("cuda"))
+#         print("to done")
+#         return None #final_model
 
     """#Loss Type, Optimizer and Learning Rate Scheduler"""
 
@@ -452,9 +453,10 @@ class TrainClassifier:
             w = self.configdata['model']['width']
         elif mtype in ['CNN_X']:
             d = self.configdata['model']['depth']
-        train_model = torch.nn.DataParallel(self.create_model(mtype,hid_unit,d,w), device_ids=[0, 1])
+          
+        train_model = torch.nn.DataParallel(self.create_model(mtype,hid_unit,d,w).to(torch.device("cuda")), device_ids=[0, 1])
         print("Student",sum(p.numel() for p in train_model.parameters() if p.requires_grad))
-        #ema_model = torch.nn.DataParallel(self.create_model(), device_ids=[0, 1])
+        #ema_model = torch.nn.DataParallel(self.create_model().to(torch.device("cuda")), device_ids=[0, 1])
         
         Nteacher = 1
         if _lambda > 0:
@@ -476,14 +478,14 @@ class TrainClassifier:
             for m in range(len(mtype)):
 
                 if mtype[m] == 'NN_2L':
-                   teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m],hid_unit=hid_unit[m]),\
+                   teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m],hid_unit=hid_unit[m]).to(torch.device("cuda")),\
                     device_ids=[0, 1]))
                 elif mtype[m] in ['WRN_16_X','DenseNet_X']:
-                    teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m],d=d[m],w=w[m]), device_ids=[0, 1]))
+                    teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m],d=d[m],w=w[m]).to(torch.device("cuda")), device_ids=[0, 1]))
                 elif mtype[m] in ['CNN_X']:
-                    teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m],d=d[m]), device_ids=[0, 1]))
+                    teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m],d=d[m]).to(torch.device("cuda")), device_ids=[0, 1]))
                 else:
-                    teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m]), device_ids=[0, 1]))
+                    teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m]).to(torch.device("cuda")), device_ids=[0, 1]))
                     print("returned")
                 
                 print("Teacher",sum(p.numel() for p in teacher_model[-1].parameters() if p.requires_grad))
