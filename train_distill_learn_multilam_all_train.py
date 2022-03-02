@@ -34,6 +34,7 @@ from models.resnet_cifar import resnet8_cifar, resnet20_cifar, resnet110_cifar
 # from diffcultymeasure_val_class_distil.LearnMultiLambdaMeta import LearnMultiLambdaMeta
 from getLambda.LearnMultiLambdaMeta import LearnMultiLambdaMeta
 
+
 seed = 24  # [42,36,24,67,84,32,75]
 
 # os.environ["CUBLAS_WORKSPACE_CONFIG"]=":4096:8"
@@ -97,8 +98,7 @@ class TrainClassifier:
             print(mtype , d )
         else:
             print(mtype)
-        
-        model_temp = None
+
         if mtype == 'ResNet18':
             model = ResNet18(self.configdata['model']['numclasses'])
         elif mtype == 'ResNet50':
@@ -122,11 +122,10 @@ class TrainClassifier:
         elif mtype == 'DenseNet_X':
             model = DN_X_Y(depth=d, g =w,num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'WRN_16_X':
-            print("model def wrn16")
             if self.configdata['dataset']['name'] in ['cars','flowers','airplane','dogs','Cub2011']:
-                model_temp = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
+                model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
             else:
-                model_temp = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
+                model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
 
         elif mtype == 'NN_2L':
             model = TwoLayerNet(input_dim=self.configdata['model']['input_dims'], \
@@ -139,11 +138,8 @@ class TrainClassifier:
 
         '''elif mtype == 'resnext50_32x4d':
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
-        print("------")
-        print()
-        print(model_temp)
-        model = model_temp #.to(self.configdata['train_args']['device'])
-        print("to done")
+
+        model = model.to(self.configdata['train_args']['device'])
         return model
 
     """#Loss Type, Optimizer and Learning Rate Scheduler"""
@@ -232,7 +228,8 @@ class TrainClassifier:
         #General Training Loop with Data Selection Strategies
         """
 
-        valid = True
+        # valid = True
+        valid = False
 
         if valid:
             if self.configdata['dataset']['feature'] == 'classimb':
@@ -290,8 +287,8 @@ class TrainClassifier:
 
         # print(trainset.dataset.data.shape)
         N = len(trainset)
-        trn_batch_size = self.configdata['dataloader']['trn_batch_size'] + self.configdata['dataloader']['val_batch_size'] - 1
-        val_batch_size = 1
+        trn_batch_size = self.configdata['dataloader']['trn_batch_size']
+        val_batch_size = self.configdata['dataloader']['val_batch_size']
         tst_batch_size = self.configdata['dataloader']['tst_batch_size']
 
         # Creating the Data Loaders
@@ -1236,7 +1233,7 @@ class TrainClassifier:
 torch.autograd.set_detect_anomaly(True)
 
 #tc = TrainClassifier("config/cifar100_wrn/config_no_curr_cifar100.py")
-tc = TrainClassifier("config/cifar10_wrn/config_learnlam_cifar_10.py")
+tc = TrainClassifier("config/cifar100_wrn/all_train_exp_config.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_samemultilam_cifar_100.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_diffmultilam_cifar_100.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_no_curr_cnn_cifar100.py")
