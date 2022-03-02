@@ -2,7 +2,7 @@
 config = dict(setting="supervisedlearning",
 
               dataset=dict(name="cifar10",
-                           datadir="/home1/durga_work/data",
+                           datadir="../data",
                            feature="dss",
                            type="pre-defined"),
 
