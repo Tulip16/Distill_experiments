@@ -91,7 +91,7 @@ class TrainClassifier:
     def create_model(self, mtype,hid_unit=None,d=None,w=None):
         
         print("create called")
-        
+        func_model = None
         if mtype == 'NN_2L':
             print(mtype , hid_unit)
         elif mtype in ['WRN_16_X','DenseNet_X']:
@@ -100,47 +100,48 @@ class TrainClassifier:
             print(mtype , d )
         else:
             print(mtype)
-
+        
         if mtype == 'ResNet18':
-            model = ResNet18(self.configdata['model']['numclasses'])
+            func_model = ResNet18(self.configdata['model']['numclasses'])
         elif mtype == 'ResNet50':
-            model = ResNet50(self.configdata['model']['numclasses'])
+            func_model = ResNet50(self.configdata['model']['numclasses'])
         elif mtype == 'ResNet8':
-            model = resnet8_cifar(num_classes=self.configdata['model']['numclasses'])
+            func_model = resnet8_cifar(num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'ResNet14':
-            model = resnet14_cifar(num_classes=self.configdata['model']['numclasses'])
+            func_model = resnet14_cifar(num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'ResNet56':
-            model = resnet56_cifar(num_classes=self.configdata['model']['numclasses'])
+            func_model = resnet56_cifar(num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'ResNet26':
-            model = resnet26_cifar(num_classes=self.configdata['model']['numclasses'])
+            func_model = resnet26_cifar(num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'ResNet32':
-            model = resnet32_cifar(num_classes=self.configdata['model']['numclasses'])
+            func_model = resnet32_cifar(num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'WideResNet':
-            model = wrn(input_shape=self.configdata['model']['input_shape'], \
+            func_model = wrn(input_shape=self.configdata['model']['input_shape'], \
                         num_classes=self.configdata['model']['numclasses'], \
                         depth=28, widen_factor=10, repeat=3, dropRate=0.3, bias=True)
         elif mtype == 'CNN_X':
-            model = create_cnn_model(d, num_classes=self.configdata['model']['numclasses'])
+            func_model = create_cnn_model(d, num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'DenseNet_X':
-            model = DN_X_Y(depth=d, g =w,num_classes=self.configdata['model']['numclasses'])
+            func_model = DN_X_Y(depth=d, g =w,num_classes=self.configdata['model']['numclasses'])
         elif mtype == 'WRN_16_X':
             if self.configdata['dataset']['name'] in ['cars','flowers','airplane','dogs','Cub2011']:
-                model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
+                func_model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=True)
             else:
-                model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
+                func_model = WRN_16_X(depth=d, width =w,num_classes=self.configdata['model']['numclasses'],if_large=False)
 
         elif mtype == 'NN_2L':
-            model = TwoLayerNet(input_dim=self.configdata['model']['input_dims'], \
+            func_model = TwoLayerNet(input_dim=self.configdata['model']['input_dims'], \
                                 num_classes=self.configdata['model']['numclasses'], \
                                 hidden_units=hid_unit)
 
         elif mtype == 'Linear':
-            model = LogisticRegNet(input_dim=self.configdata['model']['input_dims'], \
+            func_model = LogisticRegNet(input_dim=self.configdata['model']['input_dims'], \
                                    num_classes=self.configdata['model']['numclasses'])
 
         '''elif mtype == 'resnext50_32x4d':
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
-        return model
+        print(func_model)
+        return func_model
 #         print(model)
 #         final_model = copy.deepcopy(model)
 #         final_model = final_model.to(torch.device("cuda"))
