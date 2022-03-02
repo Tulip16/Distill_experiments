@@ -140,7 +140,7 @@ class TrainClassifier:
 
         '''elif mtype == 'resnext50_32x4d':
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
-        print(func_model)
+        #print(func_model)
         return func_model
 #         print(model)
 #         final_model = copy.deepcopy(model)
