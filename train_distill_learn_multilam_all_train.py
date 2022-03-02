@@ -89,7 +89,9 @@ class TrainClassifier:
     """
 
     def create_model(self, mtype,hid_unit=None,d=None,w=None):
-
+        
+        print("create called")
+        
         if mtype == 'NN_2L':
             print(mtype , hid_unit)
         elif mtype in ['WRN_16_X','DenseNet_X']:
@@ -138,6 +140,7 @@ class TrainClassifier:
 
         '''elif mtype == 'resnext50_32x4d':
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
+        print(model)
         final_model = copy.deepcopy(model)
         final_model = final_model.to(self.configdata['train_args']['device'])
         return final_model
