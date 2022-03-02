@@ -143,6 +143,7 @@ class TrainClassifier:
         print(model)
         final_model = copy.deepcopy(model)
         final_model = final_model.to(torch.device("cuda"))
+        print("to done")
         return final_model
 
     """#Loss Type, Optimizer and Learning Rate Scheduler"""
