@@ -484,6 +484,7 @@ class TrainClassifier:
                     teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m],d=d[m]), device_ids=[0, 1]))
                 else:
                     teacher_model.append(torch.nn.DataParallel(self.create_model(mtype[m]), device_ids=[0, 1]))
+                    print("returned")
                 
                 print("Teacher",sum(p.numel() for p in teacher_model[-1].parameters() if p.requires_grad))
                 print("Loading from",self.configdata['model']['teacher_path'][m])
