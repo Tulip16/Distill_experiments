@@ -142,7 +142,7 @@ class TrainClassifier:
             model = resnext50_32x4d(num_classes=self.configdata['model']['numclasses'])'''
         print(model)
         final_model = copy.deepcopy(model)
-        final_model = final_model.to(self.configdata['train_args']['device'])
+        final_model = final_model.to(torch.device("cuda"))
         return final_model
 
     """#Loss Type, Optimizer and Learning Rate Scheduler"""
