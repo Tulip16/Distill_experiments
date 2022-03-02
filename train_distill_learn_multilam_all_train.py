@@ -475,6 +475,7 @@ class TrainClassifier:
             
             teacher_model = []
             Nteacher = len(mtype)
+            print("len mtype", Nteacher)
             
             for m in range(len(mtype)):
 
