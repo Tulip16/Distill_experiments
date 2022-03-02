@@ -651,6 +651,7 @@ class TrainClassifier:
                     else:
                         loss = criterion(outputs, targets)
                     
+                    print("------ \n ------- \n loss", loss)
                     loss.backward()
                     subtrn_loss += loss.item()
                     optimizer.step()
