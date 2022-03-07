@@ -812,11 +812,12 @@ class TrainClassifier:
                         # print(batch_idx)
                         # inputs, targets = inputs.to(self.configdata['train_args']['device']), targets.to(
                         #     self.configdata['train_args']['device'], non_blocking=True)
-                        logits = train_model(inputs)
+                        logits = train_model(inputs).cpu().numpy()
                         q = sigmoid(a*logits+b)
-                        platt_loss = -np.mean(np.log(q[targets]))
+                        platt_targets = targets.cpu().numpy()
+                        platt_loss = -np.mean(np.log(q[platt_targets]))
                         grad_b = -np.mean(1-q)
-                        grad_a = -np.mean((1-q)*logits[targets])
+                        grad_a = -np.mean((1-q)*logits[platt_targets])
                         a -= platt_lr*grad_a
                         b -= platt_lr*grad_b
 
