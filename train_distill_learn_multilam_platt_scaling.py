@@ -799,6 +799,7 @@ class TrainClassifier:
             # ---- PLATT SCALING ------
             a = 1
             b = 0
+            print("platt scaling part")
             if platt_scaling:
                 platt_lr = 0.1
                 with torch.no_grad():
