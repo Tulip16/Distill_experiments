@@ -1,6 +1,7 @@
 import time
 import copy
 import numpy as np
+import math
 import os
 import torch
 import torch.nn as nn
@@ -46,6 +47,10 @@ Temp = 4
 _lambda = 0.9#.1
 
 print(seed,_lambda)
+
+def sigmoid(x):
+    y = 1 / (1 + math.exp(-x))
+    return y
 
 class MyDataset(Dataset):
     def __init__(self,dataset):
@@ -808,7 +813,7 @@ class TrainClassifier:
                         # inputs, targets = inputs.to(self.configdata['train_args']['device']), targets.to(
                         #     self.configdata['train_args']['device'], non_blocking=True)
                         logits = train_model(inputs)
-                        q = np.sigmoid(a*logits+b)
+                        q = sigmoid(a*logits+b)
                         platt_loss = -np.mean(np.log(q[targets]))
                         grad_b = -np.mean(1-q)
                         grad_a = -np.mean((1-q)*logits[targets])
