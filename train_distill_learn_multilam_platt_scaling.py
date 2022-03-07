@@ -66,6 +66,7 @@ class TrainClassifier:
     def __init__(self, config_file):
         self.config_file = config_file
         self.configdata = load_config_data(self.config_file)
+        print("umm ", self.configdata['ckpt']['is_load'])
 
     """
     Loss Evaluation
