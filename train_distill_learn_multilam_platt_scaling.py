@@ -603,8 +603,8 @@ class TrainClassifier:
                         # print(torch.sum(torch.isnan(F.log_softmax(outputs / Temp, dim=1))),torch.sum(torch.isnan(F.softmax(teacher_outputs / Temp, dim=1))),loss_KD)
                         #if self.configdata['ds_strategy']['type'] in ['MultiLam']:
                         loss_SL = criterion_nored(outputs, targets)
-                        loss = lambdas[indices,0]*loss_SL
-                        #loss = torch.mean(lambdas[indices,0]*loss_SL)
+                        #loss = lambdas[indices,0]*loss_SL
+                        loss = torch.mean(lambdas[indices,0]*loss_SL)
                         #print(torch.mean(loss).item(),end=',')
                         for m in range(Nteacher):
                             with torch.no_grad():
