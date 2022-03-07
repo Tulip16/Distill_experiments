@@ -794,6 +794,25 @@ class TrainClassifier:
             else:
                 update_ema_variables(train_model, ema_model, 0.2, i - 1)'''
 
+            platt_scaling = True
+            # ---- PLATT SCALING ------
+            a = 1
+            b = 0
+            if platt_scaling:
+                platt_lr = 0.1
+                with torch.no_grad():
+                    for batch_idx, (inputs, targets) in enumerate(valloader):
+                        # print(batch_idx)
+                        # inputs, targets = inputs.to(self.configdata['train_args']['device']), targets.to(
+                        #     self.configdata['train_args']['device'], non_blocking=True)
+                        logits = train_model(inputs)
+                        q = np.sigmoid(a*logits+b)
+                        platt_loss = -np.mean(np.log(q[targets]))
+                        grad_b = -np.mean(1-q)
+                        grad_a = -np.mean((1-q)*logits[targets])
+                        a -= platt_lr*grad_a
+                        b -= platt_lr*grad_b
+
             if "val_loss" in print_args and valid:
                 with torch.no_grad():
                     for batch_idx, (inputs, targets) in enumerate(valloader):
@@ -801,6 +820,7 @@ class TrainClassifier:
                         inputs, targets = inputs.to(self.configdata['train_args']['device']), targets.to(
                             self.configdata['train_args']['device'], non_blocking=True)
                         outputs = train_model(inputs)
+                        outputs = outputs*a + b
                         loss = criterion(outputs, targets)
                         val_loss += targets.size(0)*loss.item()
                         val_total += targets.size(0)
@@ -817,6 +837,7 @@ class TrainClassifier:
                         inputs, targets = inputs.to(self.configdata['train_args']['device']), targets.to(
                             self.configdata['train_args']['device'], non_blocking=True)
                         outputs = train_model(inputs)
+                        outputs = outputs*a + b
                         loss = criterion(outputs, targets)
                         tst_loss += targets.size(0)*loss.item()
                         tst_total += targets.size(0)
