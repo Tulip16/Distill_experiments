@@ -804,12 +804,12 @@ class TrainClassifier:
             # ---- PLATT SCALING ------
             a = 1
             b = 0
-            print("platt scaling part")
+            # print("platt scaling part")
             if platt_scaling:
                 platt_lr = 0.1
                 with torch.no_grad():
                     for batch_idx, (inputs, targets) in enumerate(valloader):
-                        print("here?")
+                        # print("here?")
                         # print(batch_idx)
                         # inputs, targets = inputs.to(self.configdata['train_args']['device']), targets.to(
                         #     self.configdata['train_args']['device'], non_blocking=True)
@@ -821,8 +821,8 @@ class TrainClassifier:
                         grad_a = -np.mean((1-q)*logits[platt_targets])
                         a -= platt_lr*grad_a
                         b -= platt_lr*grad_b
-                        print(a)
-                        print(b)
+                        # print(a)
+                        # print(b)
 
             if "val_loss" in print_args and valid:
                 with torch.no_grad():
