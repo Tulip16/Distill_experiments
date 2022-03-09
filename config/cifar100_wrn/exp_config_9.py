@@ -1,7 +1,7 @@
 # LearninNet110', setting
 config = dict(setting="supervisedlearning",
 
-              dataset=dict(name="cifar10",
+              dataset=dict(name="cifar100",
                            datadir="../data",
                            feature="dss",
                            type="pre-defined"),
@@ -16,10 +16,10 @@ config = dict(setting="supervisedlearning",
                          numclasses=10,
                          teacher_arch=['WRN_16_X'], 
                          depth_teach = [16],
-                         width_teach = [3],
+                         width_teach = [4],
                          depth = 16,
                          width = 1,
-                         teacher_path=['results/No-curr_distil/cifar10/WRN_16_X_16_3_p0/16/model.pt']),
+                         teacher_path=['results/No-curr_distilT/cifar100/WRN_16_X_[16]_[4]_16_1_p9.0/4/10/24/cifar100.txt']),
               
               ckpt=dict(is_load=False,
                         is_save=True,

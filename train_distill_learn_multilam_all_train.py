@@ -1243,7 +1243,7 @@ class TrainClassifier:
 torch.autograd.set_detect_anomaly(True)
 
 #tc = TrainClassifier("config/cifar100_wrn/config_no_curr_cifar100.py")
-tc = TrainClassifier("config/cifar10_wrn/all_train_exp_config.py")
+tc = TrainClassifier("config/cifar100_wrn/exp_config_9.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_samemultilam_cifar_100.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_diffmultilam_cifar_100.py")
 #tc = TrainClassifier("config/cifar100_wrn/config_no_curr_cnn_cifar100.py")
