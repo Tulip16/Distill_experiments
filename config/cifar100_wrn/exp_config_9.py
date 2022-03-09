@@ -19,7 +19,7 @@ config = dict(setting="supervisedlearning",
                          width_teach = [4],
                          depth = 16,
                          width = 1,
-                         teacher_path=['results/No-curr_distilT/cifar100/WRN_16_X_[16]_[4]_16_1_p9.0/4/10/24/cifar100.txt']),
+                         teacher_path=['results/No-curr_distil/cifar100/WRN_16_X_16_4_p0/16/model.pt']),
               
               ckpt=dict(is_load=False,
                         is_save=True,
