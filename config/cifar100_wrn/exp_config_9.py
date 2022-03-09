@@ -13,7 +13,7 @@ config = dict(setting="supervisedlearning",
                               pin_memory=True),
 
               model=dict(architecture='WRN_16_X', 
-                         numclasses=10,
+                         numclasses=100,
                          teacher_arch=['WRN_16_X'], 
                          depth_teach = [16],
                          width_teach = [4],
