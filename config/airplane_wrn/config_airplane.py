@@ -38,7 +38,7 @@ config = dict(setting="supervisedlearning",
               scheduler=dict(type="Mstep",
                              T_max=200),
 
-              ds_strategy=dict(type="MultiLam",
+              ds_strategy=dict(type="Teacher",
                                warm_epoch=10,
                                select_every=10,
                                decay=0.2,
