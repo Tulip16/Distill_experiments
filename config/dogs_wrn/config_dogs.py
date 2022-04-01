@@ -1,29 +1,29 @@
-# LearninNet110', setting
+# Learning setting
 config = dict(setting="supervisedlearning",
 
-              dataset=dict(name="cifar100",
+              dataset=dict(name="dogs",
                            datadir="../data",
                            feature="dss",
-                           type="pre-defined"),
+                           type="pre-defined",
+                           grad_fit=2),
 
               dataloader=dict(shuffle=True,
-                              trn_batch_size=128,
-                              val_batch_size=1000,
-                              tst_batch_size=1000,
+                              trn_batch_size=64,
+                              val_batch_size=64,
+                              tst_batch_size=128,
                               pin_memory=True),
 
-              model=dict(architecture='WRN_16_X', 
-                         numclasses=100,
+             model=dict(architecture='WRN_16_X', 
+                         numclasses=120,
                          teacher_arch=['WRN_16_X'], 
                          depth_teach = [16],
-                         width_teach = [4],
+                         width_teach = [8],
                          depth = 16,
-                         width = 1,
-                         teacher_path=['results/No-curr_distil/cifar100/WRN_16_X_16_4_p0/16/model.pt']),
-              
+                         width = 8,
+                         teacher_path=['results/No-curr_distil/dogs/WRN_16_X_16_8_p0/16/model.pt']),
+
               ckpt=dict(is_load=True,
                         is_save=True,
-                        is_save_pic=False,
                         dir='results/',
                         save_every=10),
 
@@ -38,7 +38,7 @@ config = dict(setting="supervisedlearning",
               scheduler=dict(type="Mstep",
                              T_max=200),
 
-              ds_strategy=dict(type="No-curr",
+              ds_strategy=dict(type="MultiLam",
                                warm_epoch=10,
                                select_every=10,
                                decay=0.2,
@@ -47,7 +47,7 @@ config = dict(setting="supervisedlearning",
 
               train_args=dict(num_epochs=200,
                               device="cuda",
-                              print_every=5,
+                              print_every=2,
                               results_dir='results/',
                               print_args=["val_loss", "val_acc", "tst_loss", "tst_acc", "time", "trn_loss", "trn_acc"],
                               return_args=[]
