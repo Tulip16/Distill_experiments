@@ -29,11 +29,12 @@ from utils.scheduler import Scheduler
 from models import *
 from models.resnet_cifar import resnet8_cifar, resnet20_cifar, resnet110_cifar
 
-from diffcultymeasure_val_class_distil.Lambda import RewLambda
-from diffcultymeasure_val_class_distil.LearnLambdaMeta import LearnLambdaMeta
-from diffcultymeasure_val_class_distil.LearnMultiLambdaMeta import LearnMultiLambdaMeta
+# from diffcultymeasure_val_class_distil.Lambda import RewLambda
+# from diffcultymeasure_val_class_distil.LearnLambdaMeta import LearnLambdaMeta
+# from diffcultymeasure_val_class_distil.LearnMultiLambdaMeta import LearnMultiLambdaMeta
+from getLambda.LearnMultiLambdaMeta import LearnMultiLambdaMeta
 
-seed = 75  # [42,36,24,67,84,32,75]
+seed = 24  # [42,36,24,67,84,32,75]
 
 # os.environ["CUBLAS_WORKSPACE_CONFIG"]=":4096:8"
 torch.manual_seed(seed)

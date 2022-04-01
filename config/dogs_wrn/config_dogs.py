@@ -20,7 +20,7 @@ config = dict(setting="supervisedlearning",
                          width_teach = [8],
                          depth = 16,
                          width = 8,
-                         teacher_path=['results/No-curr_distil/dogs/WRN_16_X_16_8_p0/16/model.pt']),
+                         teacher_path=['results/No-curr_distil/dogs/WRN_16_X_16_8_p0/24/model.pt']),
 
               ckpt=dict(is_load=True,
                         is_save=True,
