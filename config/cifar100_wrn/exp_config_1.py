@@ -53,4 +53,3 @@ config = dict(setting="supervisedlearning",
                               return_args=[]
                               )
               )
-
