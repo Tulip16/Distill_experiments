@@ -22,7 +22,7 @@ config = dict(setting="supervisedlearning",
                          width = 8,
                          teacher_path=['results/No-curr_distil/airplane/WRN_16_X_16_8_p0/24/model.pt']),
 
-              ckpt=dict(is_load=True,
+              ckpt=dict(is_load=False,
                         is_save=True,
                         dir='results/',
                         save_every=10),
