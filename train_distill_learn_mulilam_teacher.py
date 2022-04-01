@@ -44,7 +44,7 @@ torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 
 Temp = 4
-_lambda = 0
+_lambda = 0.0
 
 print(seed,_lambda)
 
