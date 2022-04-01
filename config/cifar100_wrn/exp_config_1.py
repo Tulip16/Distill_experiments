@@ -21,7 +21,7 @@ config = dict(setting="supervisedlearning",
                          width = 1,
                          teacher_path=['results/No-curr_distil/cifar100/WRN_16_X_16_4_p0/16/model.pt']),
               
-              ckpt=dict(is_load=False,
+              ckpt=dict(is_load=True,
                         is_save=True,
                         is_save_pic=False,
                         dir='results/',
